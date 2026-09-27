@@ -1,0 +1,1193 @@
+<!DOCTYPE html> <html lang="en"> <head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | Build-Cost Ensemble</title>
+
+<style>
+
+    /* =========================================
+       RESET
+    ========================================= */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+        background: #f1f5f9;
+
+        color: #1e293b;
+
+        overflow-x: hidden;
+
+    }
+
+    /* =========================================
+       NAVIGATION
+    ========================================= */
+
+    nav {
+
+        height: 75px;
+
+        padding:
+            0 7%;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        background:
+            linear-gradient(
+                135deg,
+                #0f172a,
+                #1e3a8a
+            );
+
+        color: white;
+
+        box-shadow:
+            0 5px 25px
+            rgba(15, 23, 42, 0.25);
+
+        position: sticky;
+
+        top: 0;
+
+        z-index: 1000;
+
+        animation:
+            navDown 0.7s ease;
+
+    }
+
+    .brand {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+    }
+
+    .brand img {
+
+        width: 45px;
+
+        height: 45px;
+
+        object-fit: cover;
+
+        border-radius: 50%;
+
+        border:
+            2px solid #60a5fa;
+
+        animation:
+            logoGlow 3s infinite;
+
+    }
+
+    .brand h2 {
+
+        font-size: 20px;
+
+        color: white;
+
+    }
+
+    .brand span {
+
+        color: #60a5fa;
+
+    }
+
+    .nav-links {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 30px;
+
+    }
+
+    nav a {
+
+        color: white;
+
+        text-decoration: none;
+
+        font-size: 15px;
+
+        position: relative;
+
+        transition:
+            0.3s;
+
+    }
+
+    nav a::after {
+
+        content: "";
+
+        position: absolute;
+
+        left: 0;
+
+        bottom: -7px;
+
+        width: 0;
+
+        height: 2px;
+
+        background:
+            #60a5fa;
+
+        transition:
+            0.3s;
+
+    }
+
+    nav a:hover {
+
+        color: #93c5fd;
+
+    }
+
+    nav a:hover::after {
+
+        width: 100%;
+
+    }
+
+    .logout {
+
+        padding:
+            9px 18px;
+
+        border-radius: 8px;
+
+        background:
+            rgba(255, 255, 255, 0.1);
+
+        border:
+            1px solid
+            rgba(255, 255, 255, 0.2);
+
+    }
+
+    .logout:hover {
+
+        background:
+            #dc2626;
+
+        color: white !important;
+
+    }
+
+    @keyframes navDown {
+
+        from {
+
+            opacity: 0;
+
+            transform:
+                translateY(-30px);
+
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+
+        }
+
+    }
+
+    @keyframes logoGlow {
+
+        0%,
+        100% {
+
+            box-shadow:
+                0 0 0
+                rgba(96, 165, 250, 0);
+
+        }
+
+        50% {
+
+            box-shadow:
+                0 0 20px
+                rgba(96, 165, 250, 0.7);
+
+        }
+
+    }
+
+    /* =========================================
+       HERO / WELCOME SECTION
+    ========================================= */
+
+    .hero {
+
+        position: relative;
+
+        padding:
+            80px 7%;
+
+        min-height: 300px;
+
+        color: white;
+
+        overflow: hidden;
+
+        background:
+
+            linear-gradient(
+                rgba(15, 23, 42, 0.82),
+                rgba(30, 64, 175, 0.88)
+            ),
+
+            url("https://t3.ftcdn.net/jpg/17/68/41/36/360_F_1768413671_3HEPpm8ZGay2qmMTtjAv3qvezWyDnn0H.jpg");
+
+        background-size: cover;
+
+        background-position: center;
+
+    }
+
+    .hero-content {
+
+        max-width: 1100px;
+
+        margin: auto;
+
+        position: relative;
+
+        z-index: 2;
+
+        animation:
+            fadeUp 1s ease;
+
+    }
+
+    .hero-badge {
+
+        display: inline-block;
+
+        padding:
+            8px 18px;
+
+        border-radius: 50px;
+
+        background:
+            rgba(96, 165, 250, 0.15);
+
+        border:
+            1px solid
+            rgba(147, 197, 253, 0.4);
+
+        color: #bfdbfe;
+
+        font-size: 13px;
+
+        margin-bottom: 18px;
+
+    }
+
+    .hero h1 {
+
+        font-size:
+            clamp(35px, 5vw, 58px);
+
+        margin-bottom: 15px;
+
+    }
+
+    .hero h1 span {
+
+        color: #60a5fa;
+
+    }
+
+    .hero p {
+
+        color: #dbeafe;
+
+        max-width: 700px;
+
+        line-height: 1.7;
+
+        font-size: 17px;
+
+    }
+
+    /* Floating background circles */
+
+    .hero-circle {
+
+        position: absolute;
+
+        border-radius: 50%;
+
+        background:
+            rgba(96, 165, 250, 0.10);
+
+        animation:
+            float 7s infinite ease-in-out;
+
+    }
+
+    .hero-circle.one {
+
+        width: 250px;
+
+        height: 250px;
+
+        right: -100px;
+
+        top: -80px;
+
+    }
+
+    .hero-circle.two {
+
+        width: 180px;
+
+        height: 180px;
+
+        left: 40%;
+
+        bottom: -120px;
+
+        animation-delay: 2s;
+
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+
+            transform:
+                translateY(0);
+
+        }
+
+        50% {
+
+            transform:
+                translateY(-25px);
+
+        }
+
+    }
+
+    /* =========================================
+       MAIN CONTAINER
+    ========================================= */
+
+    .container {
+
+        max-width: 1200px;
+
+        margin:
+            0 auto;
+
+        padding:
+            60px 25px 80px;
+
+    }
+
+    /* =========================================
+       DASHBOARD GRID
+    ========================================= */
+
+    .dashboard-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 25px;
+
+        margin-bottom: 35px;
+
+    }
+
+    .mini-card {
+
+        background: white;
+
+        border-radius: 16px;
+
+        padding: 25px;
+
+        border:
+            1px solid #e2e8f0;
+
+        box-shadow:
+            0 8px 25px
+            rgba(15, 23, 42, 0.07);
+
+        transition:
+            all 0.3s ease;
+
+        animation:
+            fadeUp 0.8s ease;
+
+    }
+
+    .mini-card:hover {
+
+        transform:
+            translateY(-7px);
+
+        box-shadow:
+            0 18px 35px
+            rgba(15, 23, 42, 0.12);
+
+    }
+
+    .mini-icon {
+
+        width: 50px;
+
+        height: 50px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 12px;
+
+        font-size: 24px;
+
+        background:
+            #eff6ff;
+
+        margin-bottom: 15px;
+
+    }
+
+    .mini-card h3 {
+
+        font-size: 15px;
+
+        color: #64748b;
+
+        margin-bottom: 7px;
+
+    }
+
+    .mini-card p {
+
+        font-size: 21px;
+
+        font-weight: bold;
+
+        color: #0f172a;
+
+        word-break: break-word;
+
+    }
+
+    /* =========================================
+       USER INFORMATION
+    ========================================= */
+
+    .section-heading {
+
+        margin-bottom: 20px;
+
+    }
+
+    .section-heading h2 {
+
+        font-size: 30px;
+
+        color: #0f172a;
+
+        margin-bottom: 7px;
+
+    }
+
+    .section-heading p {
+
+        color: #64748b;
+
+    }
+
+    .user-card {
+
+        background: white;
+
+        border-radius: 20px;
+
+        padding: 35px;
+
+        box-shadow:
+            0 10px 30px
+            rgba(15, 23, 42, 0.08);
+
+        border:
+            1px solid #e2e8f0;
+
+        margin-bottom: 35px;
+
+        animation:
+            fadeUp 1s ease;
+
+    }
+
+    .user-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 20px;
+
+    }
+
+    .info-box {
+
+        padding: 20px;
+
+        border-radius: 12px;
+
+        background:
+            #f8fafc;
+
+        border:
+            1px solid #e2e8f0;
+
+        transition:
+            0.3s;
+
+    }
+
+    .info-box:hover {
+
+        background:
+            #eff6ff;
+
+        border-color:
+            #bfdbfe;
+
+        transform:
+            translateY(-4px);
+
+    }
+
+    .info-label {
+
+        color: #64748b;
+
+        font-size: 13px;
+
+        margin-bottom: 8px;
+
+    }
+
+    .info-value {
+
+        color: #0f172a;
+
+        font-size: 17px;
+
+        font-weight: bold;
+
+        word-break: break-word;
+
+    }
+
+    /* =========================================
+       PREDICTION CARD
+    ========================================= */
+
+    .prediction {
+
+        position: relative;
+
+        overflow: hidden;
+
+        border-radius: 22px;
+
+        padding: 45px;
+
+        color: white;
+
+        background:
+
+            linear-gradient(
+                135deg,
+                #1d4ed8,
+                #172554
+            );
+
+        box-shadow:
+            0 15px 40px
+            rgba(30, 64, 175, 0.25);
+
+        animation:
+            fadeUp 1.2s ease;
+
+    }
+
+    .prediction::before {
+
+        content: "";
+
+        position: absolute;
+
+        width: 250px;
+
+        height: 250px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(255,255,255,0.05);
+
+        right: -80px;
+
+        top: -100px;
+
+    }
+
+    .prediction::after {
+
+        content: "";
+
+        position: absolute;
+
+        width: 150px;
+
+        height: 150px;
+
+        border-radius: 50%;
+
+        background:
+            rgba(255,255,255,0.05);
+
+        left: 30%;
+
+        bottom: -100px;
+
+    }
+
+    .prediction-content {
+
+        position: relative;
+
+        z-index: 2;
+
+    }
+
+    .prediction-icon {
+
+        font-size: 45px;
+
+        margin-bottom: 15px;
+
+        animation:
+            robotFloat 3s infinite ease-in-out;
+
+    }
+
+    @keyframes robotFloat {
+
+        0%,
+        100% {
+
+            transform:
+                translateY(0)
+                rotate(0deg);
+
+        }
+
+        50% {
+
+            transform:
+                translateY(-8px)
+                rotate(3deg);
+
+        }
+
+    }
+
+    .prediction h2 {
+
+        font-size: 32px;
+
+        margin-bottom: 12px;
+
+    }
+
+    .prediction p {
+
+        color: #dbeafe;
+
+        max-width: 700px;
+
+        line-height: 1.7;
+
+        margin-bottom: 25px;
+
+    }
+
+    .coming-soon {
+
+        display: inline-block;
+
+        padding:
+            10px 18px;
+
+        border-radius: 8px;
+
+        background:
+            rgba(255,255,255,0.12);
+
+        border:
+            1px solid
+            rgba(255,255,255,0.2);
+
+        font-size: 13px;
+
+    }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+
+    footer {
+
+        padding:
+            25px;
+
+        background:
+            #020617;
+
+        color:
+            #64748b;
+
+        text-align:
+            center;
+
+    }
+
+    footer span {
+
+        color:
+            #60a5fa;
+
+    }
+
+    /* =========================================
+       ANIMATIONS
+    ========================================= */
+
+    @keyframes fadeUp {
+
+        from {
+
+            opacity: 0;
+
+            transform:
+                translateY(30px);
+
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+
+        }
+
+    }
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+
+    @media (max-width: 900px) {
+
+        .dashboard-grid {
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+        }
+
+        .user-grid {
+
+            grid-template-columns:
+                1fr 1fr;
+
+        }
+
+    }
+
+    @media (max-width: 650px) {
+
+        nav {
+
+            height: auto;
+
+            padding:
+                12px 20px;
+
+            flex-direction: column;
+
+            gap: 12px;
+
+        }
+
+        .nav-links {
+
+            gap: 18px;
+
+        }
+
+        .nav-links a {
+
+            font-size: 13px;
+
+        }
+
+        .hero {
+
+            padding:
+                70px 25px;
+
+        }
+
+        .hero h1 {
+
+            font-size: 38px;
+
+        }
+
+        .hero p {
+
+            font-size: 15px;
+
+        }
+
+        .dashboard-grid {
+
+            grid-template-columns:
+                1fr;
+
+        }
+
+        .user-grid {
+
+            grid-template-columns:
+                1fr;
+
+        }
+
+        .user-card {
+
+            padding:
+                25px;
+
+        }
+
+        .prediction {
+
+            padding:
+                30px 25px;
+
+        }
+
+        .prediction h2 {
+
+            font-size: 26px;
+
+        }
+
+    }
+
+</style>
+
+</head> <body>
+<!-- =========================================
+     NAVIGATION
+========================================== -->
+
+<nav>
+
+    <div class="brand">
+
+        <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwsn5DzcB0-vdd-27XgkttwMN3QMUrza9hCBL2bj1wvA&s=10"
+            alt="Build Cost Logo"
+        >
+
+        <h2>
+            Build<span>Cost</span>
+        </h2>
+
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/dashboard/">
+            🏠 Home
+        </a>
+
+        <a
+            href="/logout/"
+            class="logout"
+        >
+            🚪 Logout
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- =========================================
+     WELCOME HERO
+========================================== -->
+
+<section class="hero">
+
+    <div class="hero-circle one"></div>
+
+    <div class="hero-circle two"></div>
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+
+            🏗️ Build-Cost Ensemble Dashboard
+
+        </div>
+
+        <h1>
+
+            Welcome,
+            <span>
+                {{ user.user_name }}
+            </span>
+
+        </h1>
+
+        <p>
+
+            Welcome to your Build-Cost Ensemble dashboard.
+            Manage your information and access intelligent
+            construction cost prediction tools from one place.
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- =========================================
+     MAIN CONTENT
+========================================== -->
+
+<main class="container">
+
+    <!-- QUICK INFORMATION -->
+
+    <div class="dashboard-grid">
+
+        <div class="mini-card">
+
+            <div class="mini-icon">
+                👤
+            </div>
+
+            <h3>
+                User Name
+            </h3>
+
+            <p>
+                {{ user.user_name }}
+            </p>
+
+        </div>
+
+        <div class="mini-card">
+
+            <div class="mini-icon">
+                📱
+            </div>
+
+            <h3>
+                Mobile Number
+            </h3>
+
+            <p>
+                {{ user.mobile_number }}
+            </p>
+
+        </div>
+
+        <div class="mini-card">
+
+            <div class="mini-icon">
+                📍
+            </div>
+
+            <h3>
+                Location
+            </h3>
+
+            <p>
+                {{ user.place }}
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- USER INFORMATION -->
+
+    <div class="section-heading">
+
+        <h2>
+            Your Information
+        </h2>
+
+        <p>
+            Your registered account information
+        </p>
+
+    </div>
+
+    <div class="user-card">
+
+        <div class="user-grid">
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    USER NAME
+                </div>
+
+                <div class="info-value">
+                    {{ user.user_name }}
+                </div>
+
+            </div>
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    MOBILE NUMBER
+                </div>
+
+                <div class="info-value">
+                    {{ user.mobile_number }}
+                </div>
+
+            </div>
+
+            <div class="info-box">
+
+                <div class="info-label">
+                    PLACE
+                </div>
+
+                <div class="info-value">
+                    {{ user.place }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PREDICTION MODULE -->
+
+    <div class="prediction">
+
+        <div class="prediction-content">
+
+            <div class="prediction-icon">
+                🤖
+            </div>
+
+            <h2>
+                Build-Cost Ensemble
+            </h2>
+
+            <p>
+
+                Your intelligent construction cost prediction
+                module will help analyze project information
+                and estimate potential construction costs
+                using data-driven techniques.
+
+            </p>
+
+            <div class="coming-soon">
+
+                🚧 Prediction Module — Coming Soon
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+<!-- =========================================
+     FOOTER
+========================================== -->
+
+<footer>
+
+    <p>
+
+        © 2026
+        <span>
+            Build-Cost Ensemble
+        </span>
+
+        . All Rights Reserved.
+
+    </p>
+
+</footer>
+
+</body> </html>

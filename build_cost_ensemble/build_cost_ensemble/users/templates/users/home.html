@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Build-Cost Ensemble</title>
+
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0f172a;
+        color: white;
+        overflow-x: hidden;
+    }
+
+    /* ================= HERO ================= */
+
+    .hero-section {
+        min-height: 100vh;
+
+        background:
+            linear-gradient(
+                rgba(5, 15, 35, 0.72),
+                rgba(5, 15, 35, 0.88)
+            ),
+            url("https://t3.ftcdn.net/jpg/17/68/41/36/360_F_1768413671_3HEPpm8ZGay2qmMTtjAv3qvezWyDnn0H.jpg");
+
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+
+        position: relative;
+    }
+
+    /* ================= HEADER ================= */
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+
+        padding: 15px 7%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        background: rgba(15, 23, 42, 0.70);
+        backdrop-filter: blur(15px);
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .logo img {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+        border-radius: 50%;
+
+        border: 2px solid #60a5fa;
+
+        animation: logoPulse 3s infinite;
+    }
+
+    .logo h2 {
+        font-size: 20px;
+    }
+
+    .logo span {
+        color: #60a5fa;
+    }
+
+    @keyframes logoPulse {
+        0%, 100% {
+            box-shadow: 0 0 0 rgba(37, 99, 235, 0);
+        }
+
+        50% {
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.7);
+        }
+    }
+
+    /* ================= NAVIGATION ================= */
+
+    nav {
+        display: flex;
+        gap: 30px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        position: relative;
+        transition: 0.3s;
+    }
+
+    nav a::after {
+        content: "";
+        position: absolute;
+
+        width: 0;
+        height: 2px;
+
+        background: #60a5fa;
+
+        left: 0;
+        bottom: -7px;
+
+        transition: 0.3s;
+    }
+
+    nav a:hover {
+        color: #60a5fa;
+    }
+
+    nav a:hover::after {
+        width: 100%;
+    }
+
+    /* ================= FLOATING CIRCLES ================= */
+
+    .circle {
+        position: absolute;
+        border-radius: 50%;
+
+        background: rgba(37, 99, 235, 0.15);
+
+        filter: blur(2px);
+
+        animation: floating 8s infinite ease-in-out;
+
+        pointer-events: none;
+    }
+
+    .circle1 {
+        width: 250px;
+        height: 250px;
+        top: 15%;
+        left: -100px;
+    }
+
+    .circle2 {
+        width: 350px;
+        height: 350px;
+        bottom: -150px;
+        right: -100px;
+        animation-delay: 2s;
+    }
+
+    .circle3 {
+        width: 150px;
+        height: 150px;
+        top: 45%;
+        right: 15%;
+        animation-delay: 4s;
+    }
+
+    @keyframes floating {
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-30px);
+        }
+    }
+
+    /* ================= HERO CONTENT ================= */
+
+    .hero-content {
+        min-height: 100vh;
+
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+
+        padding: 130px 20px 80px;
+
+        position: relative;
+        z-index: 2;
+    }
+
+    .badge {
+        display: inline-block;
+
+        padding: 9px 20px;
+
+        border-radius: 50px;
+
+        background: rgba(37, 99, 235, 0.18);
+
+        border: 1px solid rgba(96, 165, 250, 0.5);
+
+        color: #93c5fd;
+
+        font-size: 14px;
+
+        margin-bottom: 20px;
+
+        animation: fadeDown 1s ease;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(45px, 7vw, 80px);
+
+        line-height: 1.1;
+
+        margin-bottom: 25px;
+
+        background:
+            linear-gradient(
+                90deg,
+                #ffffff,
+                #60a5fa,
+                #93c5fd,
+                #ffffff
+            );
+
+        background-size: 300%;
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        animation:
+            gradientMove 5s infinite,
+            fadeUp 1s ease;
+    }
+
+    @keyframes gradientMove {
+        0% {
+            background-position: 0%;
+        }
+
+        50% {
+            background-position: 100%;
+        }
+
+        100% {
+            background-position: 0%;
+        }
+    }
+
+    .hero-content p {
+        max-width: 750px;
+
+        color: #d1d5db;
+
+        font-size: 19px;
+
+        line-height: 1.7;
+
+        margin-bottom: 8px;
+
+        animation: fadeUp 1.2s ease;
+    }
+
+    /* ================= BUTTONS ================= */
+
+    .buttons {
+        margin-top: 25px;
+
+        display: flex;
+        gap: 15px;
+
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .button {
+        display: inline-block;
+
+        padding: 14px 30px;
+
+        border-radius: 8px;
+
+        text-decoration: none;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        transition: all 0.3s ease;
+    }
+
+    .primary-btn {
+        color: white;
+
+        background:
+            linear-gradient(
+                135deg,
+                #2563eb,
+                #1d4ed8
+            );
+
+        box-shadow:
+            0 8px 25px rgba(37, 99, 235, 0.35);
+    }
+
+    .primary-btn:hover {
+        transform: translateY(-5px);
+
+        box-shadow:
+            0 15px 35px rgba(37, 99, 235, 0.55);
+    }
+
+    .secondary-btn {
+        color: white;
+
+        border: 1px solid rgba(255, 255, 255, 0.3);
+
+        background: rgba(255, 255, 255, 0.08);
+
+        backdrop-filter: blur(10px);
+    }
+
+    .secondary-btn:hover {
+        background: white;
+        color: #1d4ed8;
+
+        transform: translateY(-5px);
+    }
+
+    /* ================= FEATURES ================= */
+
+    .features {
+        background: #f8fafc;
+
+        color: #1e293b;
+
+        padding: 100px 7%;
+
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: 40px;
+
+        margin-bottom: 15px;
+
+        color: #0f172a;
+    }
+
+    .section-description {
+        color: #64748b;
+
+        max-width: 700px;
+
+        margin: 0 auto 50px;
+
+        line-height: 1.6;
+    }
+
+    /* ================= CARDS ================= */
+
+    .card-container {
+        display: grid;
+
+        grid-template-columns:
+            repeat(auto-fit, minmax(250px, 1fr));
+
+        gap: 30px;
+
+        max-width: 1200px;
+
+        margin: auto;
+    }
+
+    .card {
+        background: white;
+
+        padding: 35px 25px;
+
+        border-radius: 18px;
+
+        box-shadow:
+            0 10px 30px rgba(15, 23, 42, 0.08);
+
+        border: 1px solid #e2e8f0;
+
+        transition:
+            transform 0.4s ease,
+            box-shadow 0.4s ease;
+
+        position: relative;
+
+        overflow: hidden;
+    }
+
+    .card::before {
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 4px;
+
+        background:
+            linear-gradient(
+                90deg,
+                #2563eb,
+                #60a5fa
+            );
+    }
+
+    .card:hover {
+        transform: translateY(-12px);
+
+        box-shadow:
+            0 20px 45px rgba(15, 23, 42, 0.15);
+    }
+
+    .card-icon {
+        width: 75px;
+        height: 75px;
+
+        margin: 0 auto 20px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        font-size: 35px;
+
+        background: #eff6ff;
+
+        transition: 0.5s;
+    }
+
+    .card:hover .card-icon {
+        transform: rotateY(360deg);
+
+        background: #2563eb;
+    }
+
+    .card h3 {
+        font-size: 22px;
+
+        margin-bottom: 12px;
+
+        color: #1e293b;
+    }
+
+    .card p {
+        color: #64748b;
+
+        line-height: 1.6;
+
+        font-size: 15px;
+    }
+
+    /* ================= PROCESS ================= */
+
+    .stats {
+        padding: 70px 7%;
+
+        background:
+            linear-gradient(
+                135deg,
+                #172554,
+                #1e40af
+            );
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(auto-fit, minmax(180px, 1fr));
+
+        gap: 30px;
+
+        text-align: center;
+    }
+
+    .stat {
+        padding: 20px;
+
+        transition: 0.3s;
+    }
+
+    .stat:hover {
+        transform: translateY(-8px);
+    }
+
+    .stat h2 {
+        font-size: 42px;
+
+        color: white;
+
+        margin-bottom: 8px;
+    }
+
+    .stat p {
+        color: #bfdbfe;
+
+        font-size: 15px;
+    }
+
+    /* ================= CONTACT ================= */
+
+    .contact {
+        padding: 90px 7%;
+
+        background: #0f172a;
+
+        text-align: center;
+    }
+
+    .contact h2 {
+        font-size: 40px;
+
+        margin-bottom: 15px;
+    }
+
+    .contact > p {
+        color: #94a3b8;
+
+        margin-bottom: 40px;
+    }
+
+    .contact-container {
+        display: grid;
+
+        grid-template-columns:
+            repeat(auto-fit, minmax(220px, 1fr));
+
+        gap: 25px;
+
+        max-width: 900px;
+
+        margin: auto;
+    }
+
+    .contact-card {
+        padding: 25px;
+
+        border-radius: 12px;
+
+        background:
+            rgba(255, 255, 255, 0.05);
+
+        border:
+            1px solid rgba(255, 255, 255, 0.1);
+
+        transition: 0.3s;
+    }
+
+    .contact-card:hover {
+        background:
+            rgba(37, 99, 235, 0.2);
+
+        transform: translateY(-5px);
+
+        border-color:
+            rgba(96, 165, 250, 0.5);
+    }
+
+    .contact-card h3 {
+        color: #60a5fa;
+
+        margin-bottom: 10px;
+    }
+
+    .contact-card p {
+        color: #cbd5e1;
+
+        font-size: 14px;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+        padding: 25px;
+
+        background: #020617;
+
+        text-align: center;
+
+        color: #64748b;
+
+        border-top:
+            1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    footer span {
+        color: #60a5fa;
+    }
+
+    /* ================= ANIMATIONS ================= */
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+
+            transform:
+                translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+    }
+
+    @keyframes fadeDown {
+        from {
+            opacity: 0;
+
+            transform:
+                translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 768px) {
+
+        header {
+            padding: 12px 20px;
+        }
+
+        .logo h2 {
+            font-size: 16px;
+        }
+
+        nav {
+            gap: 12px;
+        }
+
+        nav a {
+            font-size: 13px;
+        }
+
+        .hero-content {
+            padding-top: 130px;
+        }
+
+        .hero-content h1 {
+            font-size: 45px;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+        }
+
+        .section-title {
+            font-size: 32px;
+        }
+    }
+
+    @media (max-width: 500px) {
+
+        header {
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+        nav {
+            gap: 15px;
+        }
+
+        .hero-content {
+            padding-top: 170px;
+        }
+
+        .hero-content h1 {
+            font-size: 38px;
+        }
+
+        .button {
+            width: 200px;
+        }
+    }
+
+</style>
+
+</head> <body>
+<!-- ================= HERO ================= -->
+
+<section class="hero-section">
+
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+
+            <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwsn5DzcB0-vdd-27XgkttwMN3QMUrza9hCBL2bj1wvA&s=10"
+                alt="Build Cost Logo"
+            >
+
+            <h2>
+                Build<span>Cost</span>
+            </h2>
+
+        </div>
+
+        <nav>
+
+            <a href="#home">Home</a>
+
+            <a href="/login/">Login</a>
+
+            <a href="/register/">Register</a>
+
+            <a href="#contact">Contact</a>
+
+        </nav>
+
+    </header>
+
+    <!-- HERO CONTENT -->
+
+    <div
+        class="hero-content"
+        id="home"
+    >
+
+        <div class="badge">
+            🏗️ Smart Construction Cost Analysis
+        </div>
+
+        <h1>
+            Build-Cost<br>
+            Ensemble
+        </h1>
+
+        <p>
+            Welcome to the Build-Cost Ensemble System.
+            A smart platform designed to analyze customer
+            information and predict construction costs.
+        </p>
+
+        <p>
+            Make better construction decisions with
+            data-driven cost analysis and intelligent
+            prediction.
+        </p>
+
+        <div class="buttons">
+
+            <a
+                class="button primary-btn"
+                href="/login/"
+            >
+                🚀 Get Started
+            </a>
+
+            <a
+                class="button secondary-btn"
+                href="/register/"
+            >
+                Create Account
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features">
+
+    <h2 class="section-title">
+        Powerful Construction Intelligence
+    </h2>
+
+    <p class="section-description">
+        Build-Cost Ensemble provides intelligent tools
+        to help understand construction data and estimate
+        project costs more efficiently.
+    </p>
+
+    <div class="card-container">
+
+        <div class="card">
+
+            <div class="card-icon">
+                🏗️
+            </div>
+
+            <h3>
+                Construction Analysis
+            </h3>
+
+            <p>
+                Analyze construction project information
+                and understand the important factors that
+                influence project costs.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-icon">
+                📊
+            </div>
+
+            <h3>
+                Cost Prediction
+            </h3>
+
+            <p>
+                Use intelligent prediction techniques
+                to estimate potential construction costs
+                based on project information.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-icon">
+                💰
+            </div>
+
+            <h3>
+                Budget Planning
+            </h3>
+
+            <p>
+                Understand expected costs and support
+                better planning and budgeting for
+                construction projects.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-icon">
+                🤖
+            </div>
+
+            <h3>
+                Ensemble Intelligence
+            </h3>
+
+            <p>
+                Combine multiple prediction approaches
+                to provide a data-driven construction
+                cost estimation system.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= PROCESS ================= -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <h2>01</h2>
+
+        <p>
+            Enter Project Data
+        </p>
+
+    </div>
+
+    <div class="stat">
+
+        <h2>02</h2>
+
+        <p>
+            Analyze Information
+        </p>
+
+    </div>
+
+    <div class="stat">
+
+        <h2>03</h2>
+
+        <p>
+            Generate Prediction
+        </p>
+
+    </div>
+
+    <div class="stat">
+
+        <h2>04</h2>
+
+        <p>
+            Plan Construction
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ================= CONTACT ================= -->
+
+<section
+    class="contact"
+    id="contact"
+>
+
+    <h2>
+        Contact Us
+    </h2>
+
+    <p>
+        Have questions about Build-Cost Ensemble?
+        Get in touch with our team.
+    </p>
+
+    <div class="contact-container">
+
+        <div class="contact-card">
+
+            <h3>
+                📧 Email
+            </h3>
+
+            <p>
+                support@buildcost.com
+            </p>
+
+        </div>
+
+        <div class="contact-card">
+
+            <h3>
+                📞 Phone
+            </h3>
+
+            <p>
+                +91 98765 43210
+            </p>
+
+        </div>
+
+        <div class="contact-card">
+
+            <h3>
+                📍 Location
+            </h3>
+
+            <p>
+                Maisammaguda,Dulapally,Secundarabad 500041
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026
+        <span>Build-Cost Ensemble</span>.
+        All Rights Reserved.
+    </p>
+
+</footer>
+
+</body>
+</html>

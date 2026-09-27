@@ -1,0 +1,1247 @@
+<!DOCTYPE html> <html lang="en"> <head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | Build-Cost Ensemble</title>
+
+<style>
+
+    /* =========================================
+       RESET
+    ========================================= */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+
+        min-height: 100vh;
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+        color: white;
+
+        overflow-x: hidden;
+
+        background:
+
+            linear-gradient(
+                rgba(5, 15, 35, 0.82),
+                rgba(5, 15, 35, 0.90)
+            ),
+
+            url("https://t3.ftcdn.net/jpg/17/68/41/36/360_F_1768413671_3HEPpm8ZGay2qmMTtjAv3qvezWyDnn0H.jpg");
+
+        background-size: cover;
+
+        background-position: center;
+
+        background-attachment: fixed;
+
+    }
+
+    /* =========================================
+       ANIMATED BACKGROUND
+    ========================================= */
+
+    .background {
+
+        position: fixed;
+
+        inset: 0;
+
+        overflow: hidden;
+
+        z-index: -1;
+
+    }
+
+    .circle {
+
+        position: absolute;
+
+        border-radius: 50%;
+
+        background:
+            rgba(37, 99, 235, 0.18);
+
+        filter: blur(2px);
+
+        animation:
+            float 8s infinite ease-in-out;
+
+    }
+
+    .circle1 {
+
+        width: 280px;
+
+        height: 280px;
+
+        left: -100px;
+
+        top: 15%;
+
+    }
+
+    .circle2 {
+
+        width: 350px;
+
+        height: 350px;
+
+        right: -150px;
+
+        bottom: -100px;
+
+        animation-delay: 2s;
+
+    }
+
+    .circle3 {
+
+        width: 130px;
+
+        height: 130px;
+
+        right: 20%;
+
+        top: 25%;
+
+        animation-delay: 4s;
+
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+
+            transform:
+                translateY(0)
+                translateX(0);
+
+        }
+
+        50% {
+
+            transform:
+                translateY(-35px)
+                translateX(20px);
+
+        }
+
+    }
+
+    /* =========================================
+       NAVIGATION
+    ========================================= */
+
+    nav {
+
+        width: 100%;
+
+        height: 75px;
+
+        padding: 0 7%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        background:
+            rgba(15, 23, 42, 0.70);
+
+        backdrop-filter: blur(15px);
+
+        -webkit-backdrop-filter: blur(15px);
+
+        border-bottom:
+            1px solid
+            rgba(255, 255, 255, 0.12);
+
+        animation:
+            navDown 0.8s ease;
+
+    }
+
+    .brand {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+    }
+
+    .brand img {
+
+        width: 45px;
+
+        height: 45px;
+
+        border-radius: 50%;
+
+        object-fit: cover;
+
+        border:
+            2px solid #60a5fa;
+
+        animation:
+            logoGlow 3s infinite;
+
+    }
+
+    .brand-name {
+
+        font-size: 20px;
+
+        font-weight: bold;
+
+    }
+
+    .brand-name span {
+
+        color: #60a5fa;
+
+    }
+
+    .nav-links {
+
+        display: flex;
+
+        gap: 30px;
+
+    }
+
+    .nav-links a {
+
+        color: white;
+
+        text-decoration: none;
+
+        font-size: 16px;
+
+        position: relative;
+
+        transition:
+            color 0.3s ease;
+
+    }
+
+    .nav-links a::after {
+
+        content: "";
+
+        position: absolute;
+
+        width: 0;
+
+        height: 2px;
+
+        left: 0;
+
+        bottom: -8px;
+
+        background:
+            #60a5fa;
+
+        transition:
+            width 0.3s ease;
+
+    }
+
+    .nav-links a:hover {
+
+        color: #60a5fa;
+
+    }
+
+    .nav-links a:hover::after {
+
+        width: 100%;
+
+    }
+
+    @keyframes navDown {
+
+        from {
+
+            opacity: 0;
+
+            transform:
+                translateY(-30px);
+
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+
+        }
+
+    }
+
+    @keyframes logoGlow {
+
+        0%,
+        100% {
+
+            box-shadow:
+                0 0 0
+                rgba(96, 165, 250, 0);
+
+        }
+
+        50% {
+
+            box-shadow:
+                0 0 25px
+                rgba(96, 165, 250, 0.7);
+
+        }
+
+    }
+
+    /* =========================================
+       MAIN AREA
+    ========================================= */
+
+    .page {
+
+        min-height:
+            calc(100vh - 75px);
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        padding: 60px 20px;
+
+    }
+
+    /* =========================================
+       LOGIN CARD
+    ========================================= */
+
+    .container {
+
+        width: 430px;
+
+        max-width: 100%;
+
+        padding: 40px;
+
+        border-radius: 22px;
+
+        background:
+            rgba(255, 255, 255, 0.10);
+
+        border:
+            1px solid
+            rgba(255, 255, 255, 0.20);
+
+        backdrop-filter:
+            blur(20px);
+
+        -webkit-backdrop-filter:
+            blur(20px);
+
+        box-shadow:
+            0 25px 70px
+            rgba(0, 0, 0, 0.45);
+
+        animation:
+            cardAppear 1s ease;
+
+        position: relative;
+
+        overflow: hidden;
+
+    }
+
+    /* Animated top border */
+
+    .container::before {
+
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+
+        left: -100%;
+
+        width: 100%;
+
+        height: 3px;
+
+        background:
+            linear-gradient(
+                90deg,
+                transparent,
+                #60a5fa,
+                #2563eb,
+                transparent
+            );
+
+        animation:
+            borderMove 3s infinite;
+
+    }
+
+    @keyframes borderMove {
+
+        0% {
+
+            left: -100%;
+
+        }
+
+        50% {
+
+            left: 100%;
+
+        }
+
+        100% {
+
+            left: 100%;
+
+        }
+
+    }
+
+    @keyframes cardAppear {
+
+        from {
+
+            opacity: 0;
+
+            transform:
+                translateY(50px)
+                scale(0.95);
+
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+
+        }
+
+    }
+
+    /* =========================================
+       LOGIN HEADER
+    ========================================= */
+
+    .login-icon {
+
+        width: 80px;
+
+        height: 80px;
+
+        margin:
+            0 auto 20px;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        border-radius: 50%;
+
+        font-size: 38px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #2563eb,
+                #1e40af
+            );
+
+        box-shadow:
+            0 10px 30px
+            rgba(37, 99, 235, 0.45);
+
+        animation:
+            iconFloat 3s infinite ease-in-out;
+
+    }
+
+    @keyframes iconFloat {
+
+        0%,
+        100% {
+
+            transform:
+                translateY(0);
+
+        }
+
+        50% {
+
+            transform:
+                translateY(-8px);
+
+        }
+
+    }
+
+    h1 {
+
+        text-align: center;
+
+        font-size: 34px;
+
+        margin-bottom: 8px;
+
+        background:
+            linear-gradient(
+                90deg,
+                #ffffff,
+                #93c5fd
+            );
+
+        -webkit-background-clip: text;
+
+        -webkit-text-fill-color: transparent;
+
+    }
+
+    .subtitle {
+
+        text-align: center;
+
+        color: #cbd5e1;
+
+        font-size: 14px;
+
+        margin-bottom: 30px;
+
+    }
+
+    /* =========================================
+       ERROR MESSAGE
+    ========================================= */
+
+    .error {
+
+        color: #fecaca;
+
+        background:
+            rgba(220, 38, 38, 0.15);
+
+        border:
+            1px solid
+            rgba(248, 113, 113, 0.35);
+
+        padding: 12px;
+
+        border-radius: 8px;
+
+        text-align: center;
+
+        margin-bottom: 20px;
+
+        font-size: 14px;
+
+        animation:
+            shake 0.5s ease;
+
+    }
+
+    @keyframes shake {
+
+        0%,
+        100% {
+
+            transform:
+                translateX(0);
+
+        }
+
+        25% {
+
+            transform:
+                translateX(-7px);
+
+        }
+
+        75% {
+
+            transform:
+                translateX(7px);
+
+        }
+
+    }
+
+    /* =========================================
+       FORM
+    ========================================= */
+
+    .form-group {
+
+        margin-bottom: 22px;
+
+    }
+
+    label {
+
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: #e2e8f0;
+
+        font-size: 14px;
+
+        font-weight: bold;
+
+    }
+
+    .input-box {
+
+        position: relative;
+
+    }
+
+    .input-icon {
+
+        position: absolute;
+
+        left: 15px;
+
+        top: 50%;
+
+        transform:
+            translateY(-50%);
+
+        font-size: 18px;
+
+        opacity: 0.8;
+
+    }
+
+    input {
+
+        width: 100%;
+
+        height: 52px;
+
+        padding:
+            0 45px;
+
+        border-radius: 10px;
+
+        border:
+            1px solid
+            rgba(255, 255, 255, 0.18);
+
+        background:
+            rgba(15, 23, 42, 0.55);
+
+        color: white;
+
+        font-size: 15px;
+
+        outline: none;
+
+        transition:
+            all 0.3s ease;
+
+    }
+
+    input::placeholder {
+
+        color:
+            #94a3b8;
+
+    }
+
+    input:focus {
+
+        border-color:
+            #60a5fa;
+
+        background:
+            rgba(15, 23, 42, 0.75);
+
+        box-shadow:
+            0 0 0 4px
+            rgba(37, 99, 235, 0.15);
+
+        transform:
+            translateY(-1px);
+
+    }
+
+    /* =========================================
+       PASSWORD BUTTON
+    ========================================= */
+
+    .show-password {
+
+        position: absolute;
+
+        right: 14px;
+
+        top: 50%;
+
+        transform:
+            translateY(-50%);
+
+        border: none;
+
+        background: transparent;
+
+        color: #94a3b8;
+
+        cursor: pointer;
+
+        font-size: 17px;
+
+    }
+
+    .show-password:hover {
+
+        color: white;
+
+    }
+
+    /* =========================================
+       LOGIN BUTTON
+    ========================================= */
+
+    button[type="submit"] {
+
+        width: 100%;
+
+        height: 52px;
+
+        margin-top: 8px;
+
+        border: none;
+
+        border-radius: 10px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #2563eb,
+                #1d4ed8
+            );
+
+        color: white;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 10px 25px
+            rgba(37, 99, 235, 0.35);
+
+        transition:
+            all 0.3s ease;
+
+        position: relative;
+
+        overflow: hidden;
+
+    }
+
+    button[type="submit"]::before {
+
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+
+        left: -100%;
+
+        width: 100%;
+
+        height: 100%;
+
+        background:
+            linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,255,255,0.25),
+                transparent
+            );
+
+        transition:
+            left 0.5s ease;
+
+    }
+
+    button[type="submit"]:hover {
+
+        transform:
+            translateY(-3px);
+
+        box-shadow:
+            0 15px 35px
+            rgba(37, 99, 235, 0.5);
+
+    }
+
+    button[type="submit"]:hover::before {
+
+        left: 100%;
+
+    }
+
+    button[type="submit"]:active {
+
+        transform:
+            translateY(0);
+
+    }
+
+    /* =========================================
+       REGISTER LINK
+    ========================================= */
+
+    .register-text {
+
+        text-align: center;
+
+        margin-top: 25px;
+
+        color: #cbd5e1;
+
+        font-size: 14px;
+
+    }
+
+    .register-text a {
+
+        color: #60a5fa;
+
+        text-decoration: none;
+
+        font-weight: bold;
+
+        margin-left: 4px;
+
+    }
+
+    .register-text a:hover {
+
+        color: #93c5fd;
+
+        text-decoration: underline;
+
+    }
+
+    /* =========================================
+       DIVIDER
+    ========================================= */
+
+    .divider {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        margin:
+            25px 0;
+
+        color: #94a3b8;
+
+        font-size: 12px;
+
+    }
+
+    .divider::before,
+    .divider::after {
+
+        content: "";
+
+        height: 1px;
+
+        flex: 1;
+
+        background:
+            rgba(255,255,255,0.15);
+
+    }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+
+    .footer {
+
+        text-align: center;
+
+        color: #64748b;
+
+        font-size: 12px;
+
+        margin-top: 20px;
+
+    }
+
+    .footer span {
+
+        color: #60a5fa;
+
+    }
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+
+    @media (max-width: 700px) {
+
+        nav {
+
+            padding:
+                0 20px;
+
+        }
+
+        .nav-links {
+
+            gap: 15px;
+
+        }
+
+        .nav-links a {
+
+            font-size: 13px;
+
+        }
+
+        .brand-name {
+
+            font-size: 16px;
+
+        }
+
+        .brand img {
+
+            width: 40px;
+
+            height: 40px;
+
+        }
+
+    }
+
+    @media (max-width: 500px) {
+
+        nav {
+
+            height: auto;
+
+            padding:
+                12px 15px;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+        }
+
+        .nav-links {
+
+            gap: 18px;
+
+        }
+
+        .page {
+
+            padding:
+                40px 15px;
+
+        }
+
+        .container {
+
+            padding: 30px 22px;
+
+            border-radius: 18px;
+
+        }
+
+        h1 {
+
+            font-size: 29px;
+
+        }
+
+        .login-icon {
+
+            width: 70px;
+
+            height: 70px;
+
+            font-size: 32px;
+
+        }
+
+    }
+
+</style>
+
+</head> <body>
+<!-- =========================================
+     BACKGROUND ANIMATION
+========================================== -->
+
+<div class="background">
+
+    <div class="circle circle1"></div>
+
+    <div class="circle circle2"></div>
+
+    <div class="circle circle3"></div>
+
+</div>
+
+<!-- =========================================
+     NAVIGATION
+========================================== -->
+
+<nav>
+
+    <div class="brand">
+
+        <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwsn5DzcB0-vdd-27XgkttwMN3QMUrza9hCBL2bj1wvA&s=10"
+            alt="Build Cost Logo"
+        >
+
+        <div class="brand-name">
+
+            Build<span>Cost</span>
+
+        </div>
+
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/login/">
+            Login
+        </a>
+
+        <a href="/register/">
+            Register
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- =========================================
+     LOGIN PAGE
+========================================== -->
+
+<main class="page">
+
+    <div class="container">
+
+        <!-- Login Icon -->
+
+        <div class="login-icon">
+
+            🔐
+
+        </div>
+
+        <h1>
+            Welcome Back
+        </h1>
+
+        <p class="subtitle">
+            Login to your Build-Cost Ensemble account
+        </p>
+
+        <!-- Django Error -->
+
+        {% if error %}
+
+            <p class="error">
+                ⚠️ {{ error }}
+            </p>
+
+        {% endif %}
+
+        <!-- LOGIN FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <!-- USERNAME -->
+
+            <div class="form-group">
+
+                <label for="user_name">
+                    User Name
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">
+                        👤
+                    </span>
+
+                    <input
+                        type="text"
+                        id="user_name"
+                        name="user_name"
+                        placeholder="Enter username"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="input-box">
+
+                    <span class="input-icon">
+                        🔒
+                    </span>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        onclick="togglePassword()"
+                        aria-label="Show password"
+                    >
+                        👁
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- LOGIN BUTTON -->
+
+            <button type="submit">
+
+                Login →
+
+            </button>
+
+        </form>
+
+        <div class="divider">
+            OR
+        </div>
+
+        <!-- REGISTER -->
+
+        <p class="register-text">
+
+            Don't have an account?
+
+            <a href="/register/">
+                Create Account
+            </a>
+
+        </p>
+
+        <p class="footer">
+
+            © 2026
+            <span>Build-Cost Ensemble</span>
+
+        </p>
+
+    </div>
+
+</main>
+
+<!-- =========================================
+     PASSWORD SCRIPT
+========================================== -->
+
+<script>
+
+    function togglePassword() {
+
+        const password =
+            document.getElementById("password");
+
+        const button =
+            document.querySelector(".show-password");
+
+        if (password.type === "password") {
+
+            password.type = "text";
+
+            button.textContent = "🙈";
+
+        } else {
+
+            password.type = "password";
+
+            button.textContent = "👁";
+
+        }
+
+    }
+
+</script>
